@@ -2346,37 +2346,38 @@ local v47 = v26:Create(v23, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.Easin
 -- 🟢 Toggle state
 local toggled = true
 
-v23.MouseButton1Down:Connect(function()
-    v25.Rate = 100;
-    task.delay(1, function()
-        v25.Rate = 0;
-    end);
+-- 🔧 Fix icon BananaCat bật/tắt menu nhiều lần không lỗi
+local opened = true
 
-    v47:Play();
-    game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game);
+v23.MouseButton1Click:Connect(function()
+    v25.Rate = 100
+    task.delay(0.8, function()
+        v25.Rate = 0
+    end)
 
+    -- Hiệu ứng xoay
+    v47:Play()
     v47.Completed:Connect(function()
-        v23.Rotation = 0;
-    end);
+        v23.Rotation = 0
+    end)
 
-    if not toggled then
-        -- Bật trạng thái: to + trắng đặc
-        toggled = true
+    -- Đổi trạng thái mở/tắt GUI
+    opened = not opened
+    v15.Window.Visible = opened -- nếu GUI của bạn khác tên, đổi v15.Window thành đúng biến GUI chính
+
+    -- Hiệu ứng phồng/thu nhỏ khi nhấn
+    if opened then
         v23.BackgroundTransparency = 0
-        v23.BackgroundColor3 = Color3.fromRGB(255,255,255)
-        local v235 = v26:Create(v23, TweenInfo.new(0.2, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out), {
+        v23.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        v26:Create(v23, TweenInfo.new(0.2, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out), {
             Size = UDim2.new(0, 60, 0, 60)
-        });
-        v235:Play()
+        }):Play()
     else
-        -- Tắt trạng thái: nhỏ + trong nhẹ
-        toggled = false
         v23.BackgroundTransparency = 0.5
-        v23.BackgroundColor3 = Color3.fromRGB(255,255,255)
-        local v483 = v26:Create(v23, TweenInfo.new(0.2, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out), {
+        v23.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        v26:Create(v23, TweenInfo.new(0.2, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out), {
             Size = UDim2.new(0, 50, 0, 50)
-        });
-        v483:Play()
+        }):Play()
     end
 end)
 
@@ -9026,6 +9027,4 @@ spawn(function()
         end
     end
 end);
-
-
 
