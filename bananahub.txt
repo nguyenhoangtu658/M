@@ -1,9 +1,9 @@
 local v14 = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))();
 local v15 = v14:CreateWindow({
-    Title = "Htu v4",
-    SubTitle = "By Htu",
+    Title = "Banana Cat Hub-Blox Fruit [ Premium ]",-- thay tên bạn muốn đặt
+    SubTitle = "By Obii",-- tên bạn
     TabWidth = 160,
-    Theme = "Dark",
+    Theme = "Dark",--màu
     Acrylic = false,
     Size = UDim2.fromOffset(500, 320),
     MinimizeKey = Enum.KeyCode.End
@@ -63,8 +63,8 @@ elseif (v18 == 4442272183) then
     Sea2 = true;
 elseif (v18 == 7449423635) then
     Sea3 = true;
---  else
---    game:Shutdown();
+-- else
+--  game:Shutdown();
 end
 game:GetService("Players").LocalPlayer.Idled:connect(function()
     game:GetService("VirtualUser"):Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame);
@@ -2307,65 +2307,50 @@ function to(v233)
         end
     end);
 end
+local v22 = Instance.new("ScreenGui");
+local v23 = Instance.new("ImageButton");
+local v24 = Instance.new("UICorner");
+local v25 = Instance.new("ParticleEmitter");
+local v26 = game:GetService("TweenService");
 
---// GUI toggle setup
-local TweenService = game:GetService("TweenService")
+v22.Parent = game.CoreGui;
+v22.ZIndexBehavior = Enum.ZIndexBehavior.Sibling;
 
--- Giao diện chính
-local v22 = Instance.new("ScreenGui")
-v22.Name = "MainUI"
-v22.Parent = game:GetService("CoreGui")
-v22.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+v23.Parent = v22;
+v23.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+v23.BackgroundTransparency = 0.5
+v23.BorderSizePixel = 0;
+v23.Position = UDim2.new(0.120833337 - 0.1, 0, 0.0952890813 + 0.01, 0);
+v23.Size = UDim2.new(0, 50, 0, 50);
+v23.Draggable = true;
+v23.Image = "http://www.roblox.com/asset/?id=130947856929902";
 
--- Nút bật/tắt menu
-local toggleButton = Instance.new("ImageButton")
-toggleButton.Name = "ToggleMenu"
-toggleButton.Parent = v22
-toggleButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-toggleButton.BorderSizePixel = 0
-toggleButton.Position = UDim2.new(0.02, 0, 0.1, 0)
-toggleButton.Size = UDim2.new(0, 50, 0, 50)
-toggleButton.Draggable = true
-toggleButton.Image = "rbxassetid://107606765081372"
+v24.Parent = v23;
+v24.CornerRadius = UDim.new(1, 0);
 
--- Bo góc nút
-local uicorner = Instance.new("UICorner", toggleButton)
-uicorner.CornerRadius = UDim.new(0, 10)
+v25.Parent = v23;
+v25.LightEmission = 1;
+v25.Size = NumberSequence.new({
+    NumberSequenceKeypoint.new(0, 0.1),
+    NumberSequenceKeypoint.new(1, 0)
+});
+v25.Lifetime = NumberRange.new(0.5, 1);
+v25.Rate = 0;
+v25.Speed = NumberRange.new(5, 10);
+v25.Color = ColorSequence.new(Color3.fromRGB(255, 85, 255), Color3.fromRGB(85, 255, 255));
 
--- Hiệu ứng khi bấm
-local particle = Instance.new("ParticleEmitter", toggleButton)
-particle.LightEmission = 1
-particle.Size = NumberSequence.new({
-	NumberSequenceKeypoint.new(0, 0.1),
-	NumberSequenceKeypoint.new(1, 0)
-})
-particle.Lifetime = NumberRange.new(0.5, 1)
-particle.Rate = 0
-particle.Speed = NumberRange.new(5, 10)
-particle.Color = ColorSequence.new(Color3.fromRGB(255, 85, 255), Color3.fromRGB(85, 255, 255))
+local v47 = v26:Create(v23, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+    Rotation = 0
+});
 
--- Trạng thái menu
-local menuVisible = true
+-- 🟢 Toggle state
+local toggled = true
 
--- Nút bật/tắt hoạt động
-toggleButton.MouseButton1Click:Connect(function()
-	particle.Rate = 100
-	task.delay(0.5, function()
-		particle.Rate = 0
-	end)
-
-	menuVisible = not menuVisible
-	for _, ui in pairs(v22:GetChildren()) do
-		if ui:IsA("Frame") or ui:IsA("ScrollingFrame") or ui:IsA("TextLabel") then
-			ui.Visible = menuVisible
-		end
-	end
-
-	local rotateTween = TweenService:Create(toggleButton, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-		Rotation = menuVisible and 0 or 180
-	})
-	rotateTween:Play()
-end)
+v23.MouseButton1Down:Connect(function()
+    v25.Rate = 100;
+    task.delay(1, function()
+        v25.Rate = 0;
+    end);
 
     v47:Play();
     game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game);
@@ -2375,7 +2360,7 @@ end)
     end);
 
     if not toggled then
-    
+        -- Bật trạng thái: to + trắng đặc
         toggled = true
         v23.BackgroundTransparency = 0
         v23.BackgroundColor3 = Color3.fromRGB(255,255,255)
@@ -2384,7 +2369,7 @@ end)
         });
         v235:Play()
     else
-    
+        -- Tắt trạng thái: nhỏ + trong nhẹ
         toggled = false
         v23.BackgroundTransparency = 0.5
         v23.BackgroundColor3 = Color3.fromRGB(255,255,255)
@@ -2395,6 +2380,7 @@ end)
     end
 end)
 
+-- xoá effect mặc định
 if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Death") then
     game:GetService("ReplicatedStorage").Effect.Container.Death:Destroy();
 end
@@ -4404,7 +4390,7 @@ if Sea3 then
         end
         for v728, v729 in pairs(game:GetService("Workspace").Map.MysticIsland:GetDescendants()) do
             if v729:IsA("MeshPart") then
-                if (v729.MeshId == "rbxassetid://83190276951914") then
+                if (v729.MeshId == "rbxassetid://83190276951914") then --thay id ảnh vào
                     return v729;
                 end
             end
