@@ -2308,44 +2308,64 @@ function to(v233)
     end);
 end
 
-local v22 = Instance.new("ScreenGui");
+--// GUI toggle setup
 local TweenService = game:GetService("TweenService")
-local ui = Instance.new("ScreenGui", game.Players.LocalPlayer:WaitForChild("PlayerGui"))
 
-local toggleMain = Instance.new("ImageButton", ui)
-toggleMain.Size = UDim2.new(0, 50, 0, 50)
-toggleMain.Position = UDim2.new(0, 20, 0, 120)
-toggleMain.BackgroundColor3 = Color3.fromRGB(50, 50, 60)
-toggleMain.BorderSizePixel = 0
-toggleMain.Image = "rbxassetid://80495110628345"
-toggleMain.ScaleType = Enum.ScaleType.Fit
-toggleMain.Active = true
-toggleMain.Draggable = true
+-- Giao diện chính
+local v22 = Instance.new("ScreenGui")
+v22.Name = "MainUI"
+v22.Parent = game:GetService("CoreGui")
+v22.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-local uicorner1 = Instance.new("UICorner", toggleMain)
-uicorner1.CornerRadius = UDim.new(0, 10)
+-- Nút bật/tắt menu
+local toggleButton = Instance.new("ImageButton")
+toggleButton.Name = "ToggleMenu"
+toggleButton.Parent = v22
+toggleButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+toggleButton.BorderSizePixel = 0
+toggleButton.Position = UDim2.new(0.02, 0, 0.1, 0)
+toggleButton.Size = UDim2.new(0, 50, 0, 50)
+toggleButton.Draggable = true
+toggleButton.Image = "rbxassetid://107606765081372"
 
-v25.Size = NumberSequence.new({
-    NumberSequenceKeypoint.new(0, 0.1),
-    NumberSequenceKeypoint.new(1, 0)
-});
+-- Bo góc nút
+local uicorner = Instance.new("UICorner", toggleButton)
+uicorner.CornerRadius = UDim.new(0, 10)
 
-v25.Lifetime = NumberRange.new(0.5, 1);
-v25.Rate = 0;
-v25.Speed = NumberRange.new(5, 10);
-v25.Color = ColorSequence.new(Color3.fromRGB(255, 85, 255), Color3.fromRGB(85, 255, 255));
+-- Hiệu ứng khi bấm
+local particle = Instance.new("ParticleEmitter", toggleButton)
+particle.LightEmission = 1
+particle.Size = NumberSequence.new({
+	NumberSequenceKeypoint.new(0, 0.1),
+	NumberSequenceKeypoint.new(1, 0)
+})
+particle.Lifetime = NumberRange.new(0.5, 1)
+particle.Rate = 0
+particle.Speed = NumberRange.new(5, 10)
+particle.Color = ColorSequence.new(Color3.fromRGB(255, 85, 255), Color3.fromRGB(85, 255, 255))
 
-local v47 = v26:Create(v23, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-    Rotation = 0
-});
+-- Trạng thái menu
+local menuVisible = true
 
-local toggled = true
+-- Nút bật/tắt hoạt động
+toggleButton.MouseButton1Click:Connect(function()
+	particle.Rate = 100
+	task.delay(0.5, function()
+		particle.Rate = 0
+	end)
 
-v23.MouseButton1Down:Connect(function()
-    v25.Rate = 100;
-    task.delay(1, function()
-        v25.Rate = 0;
-    end);
+	menuVisible = not menuVisible
+	for _, ui in pairs(v22:GetChildren()) do
+		if ui:IsA("Frame") or ui:IsA("ScrollingFrame") or ui:IsA("TextLabel") then
+			ui.Visible = menuVisible
+		end
+	end
+
+	local rotateTween = TweenService:Create(toggleButton, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Rotation = menuVisible and 0 or 180
+	})
+	rotateTween:Play()
+end)
 
     v47:Play();
     game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game);
