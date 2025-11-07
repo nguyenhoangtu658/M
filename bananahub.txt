@@ -2310,7 +2310,7 @@ end
 
 local v22 = Instance.new("ScreenGui");
 local TweenService = game:GetService("TweenService")
-local ui = Instance.new("ScreenGui", game.CoreGui)
+local ui = Instance.new("ScreenGui", game.Players.LocalPlayer:WaitForChild("PlayerGui"))
 
 local toggleMain = Instance.new("ImageButton", ui)
 toggleMain.Size = UDim2.new(0, 50, 0, 50)
