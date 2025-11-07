@@ -1,9 +1,9 @@
 local v14 = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))();
 local v15 = v14:CreateWindow({
-    Title = "Banana Cat Hub-Blox Fruit [ Premium ]",-- thay tên bạn muốn đặt
-    SubTitle = "By Obii",-- tên bạn
+    Title = "Htu v4",
+    SubTitle = "By Htu",
     TabWidth = 160,
-    Theme = "Dark",--màu
+    Theme = "Dark",
     Acrylic = false,
     Size = UDim2.fromOffset(500, 320),
     MinimizeKey = Enum.KeyCode.End
@@ -2307,81 +2307,69 @@ function to(v233)
         end
     end);
 end
-local v22 = Instance.new("ScreenGui");
-local v23 = Instance.new("ImageButton");
-local v24 = Instance.new("UICorner");
-local v25 = Instance.new("ParticleEmitter");
-local v26 = game:GetService("TweenService");
+-- ✅ Script: Icon hình vuông bo góc (chỉ icon bật/tắt, không bảng)
 
-v22.Parent = game.CoreGui;
-v22.ZIndexBehavior = Enum.ZIndexBehavior.Sibling;
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "ToggleIcon"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = game.CoreGui
 
-v23.Parent = v22;
-v23.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
-v23.BackgroundTransparency = 0.5
-v23.BorderSizePixel = 0;
-v23.Position = UDim2.new(0.120833337 - 0.1, 0, 0.0952890813 + 0.01, 0);
-v23.Size = UDim2.new(0, 50, 0, 50);
-v23.Draggable = true;
-v23.Image = "http://www.roblox.com/asset/?id=130947856929902";
+-- 🟩 Icon hình vuông có bo góc
+local ToggleButton = Instance.new("ImageButton")
+ToggleButton.Name = "ToggleButton"
+ToggleButton.Parent = ScreenGui
+ToggleButton.Image = "rbxassetid://107606765081372" -- Hình icon
+ToggleButton.BackgroundTransparency = 1
+ToggleButton.Size = UDim2.new(0, 60, 0, 60) -- Kích thước nhỏ
+ToggleButton.Position = UDim2.new(0.05, 0, 0.3, 0)
+ToggleButton.Active = true
+ToggleButton.Draggable = true -- Có thể kéo di chuyển
 
-v24.Parent = v23;
-v24.CornerRadius = UDim.new(1, 0);
+-- 🟠 Bo góc cho icon
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 12)
+UICorner.Parent = ToggleButton
 
-v25.Parent = v23;
-v25.LightEmission = 1;
-v25.Size = NumberSequence.new({
-    NumberSequenceKeypoint.new(0, 0.1),
-    NumberSequenceKeypoint.new(1, 0)
-});
-v25.Lifetime = NumberRange.new(0.5, 1);
-v25.Rate = 0;
-v25.Speed = NumberRange.new(5, 10);
-v25.Color = ColorSequence.new(Color3.fromRGB(255, 85, 255), Color3.fromRGB(85, 255, 255));
+-- 🧩 Biến để lưu trạng thái mở/tắt (nếu sau này cần)
+local isOn = false
 
-local v47 = v26:Create(v23, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-    Rotation = 0
-});
+ToggleButton.MouseButton1Click:Connect(function()
+	isOn = not isOn
+	if isOn then
+		print("🟢 Icon bật")
+	else
+		print("🔴 Icon tắt")
+	end
+end)
 
--- 🟢 Toggle state
-local toggled = true
+    v47:Play();
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game);
 
--- 🔧 Fix icon BananaCat bật/tắt menu nhiều lần không lỗi
-local opened = true
-
-v23.MouseButton1Click:Connect(function()
-    v25.Rate = 100
-    task.delay(0.8, function()
-        v25.Rate = 0
-    end)
-
-    -- Hiệu ứng xoay
-    v47:Play()
     v47.Completed:Connect(function()
-        v23.Rotation = 0
-    end)
+        v23.Rotation = 0;
+    end);
 
-    -- Đổi trạng thái mở/tắt GUI
-    opened = not opened
-    v15.Window.Visible = opened -- nếu GUI của bạn khác tên, đổi v15.Window thành đúng biến GUI chính
-
-    -- Hiệu ứng phồng/thu nhỏ khi nhấn
-    if opened then
+    if not toggled then
+    
+        toggled = true
         v23.BackgroundTransparency = 0
-        v23.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        v26:Create(v23, TweenInfo.new(0.2, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out), {
+        v23.BackgroundColor3 = Color3.fromRGB(255,255,255)
+        local v235 = v26:Create(v23, TweenInfo.new(0.2, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out), {
             Size = UDim2.new(0, 60, 0, 60)
-        }):Play()
+        });
+        v235:Play()
     else
+    
+        toggled = false
         v23.BackgroundTransparency = 0.5
-        v23.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        v26:Create(v23, TweenInfo.new(0.2, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out), {
+        v23.BackgroundColor3 = Color3.fromRGB(255,255,255)
+        local v483 = v26:Create(v23, TweenInfo.new(0.2, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out), {
             Size = UDim2.new(0, 50, 0, 50)
-        }):Play()
+        });
+        v483:Play()
     end
 end)
 
--- xoá effect mặc định
 if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Death") then
     game:GetService("ReplicatedStorage").Effect.Container.Death:Destroy();
 end
@@ -4391,7 +4379,7 @@ if Sea3 then
         end
         for v728, v729 in pairs(game:GetService("Workspace").Map.MysticIsland:GetDescendants()) do
             if v729:IsA("MeshPart") then
-                if (v729.MeshId == "rbxassetid://83190276951914") then --thay id ảnh vào
+                if (v729.MeshId == "rbxassetid://83190276951914") then
                     return v729;
                 end
             end
