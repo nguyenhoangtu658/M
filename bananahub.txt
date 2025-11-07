@@ -1,9 +1,10 @@
-local v14 = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))();
 for i,v in pairs(game.CoreGui:GetChildren()) do
     if v.Name:match("Fluent") then
         v:Destroy()
     end
 end
+local v14 = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))();
+
 loccal v15 = v14:CreateWindow({
     Title = "Banana Cat Hub-Blox Fruit [ Premium ]",-- thay tên bạn muốn đặt
     SubTitle = "By Obii",-- tên bạn
@@ -8990,4 +8991,5 @@ spawn(function()
         end
     end
 end);
+
 
