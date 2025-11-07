@@ -2307,40 +2307,46 @@ function to(v233)
         end
     end);
 end
--- ✅ Script: Icon hình vuông bo góc (chỉ icon bật/tắt, không bảng)
 
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "ToggleIcon"
-ScreenGui.ResetOnSpawn = false
-ScreenGui.Parent = game.CoreGui
+local v22 = Instance.new("ScreenGui");
+local v23 = Instance.new("ImageButton");
+local v24 = Instance.new("UICorner");
+local v25 = Instance.new("ParticleEmitter");
+local v26 = game:GetService("TweenService");
+v22.Parent = game.CoreGui;
+v22.ZIndexBehavior = Enum.ZIndexBehavior.Sibling;
+v23.Parent = v22;
+v23.BackgroundColor3 = Color3.fromRGB(0, 0, 0);
+v23.BorderSizePixel = 0;
+v23.Position = UDim2.new(0.120833337 - 0.1, 0, 0.0952890813 + 0.01, 0);
+v23.Size = UDim2.new(0, 50, 0, 50);
+v23.Draggable = true;
+v23.Image = "rbxassetid://107606765081372"
+v24.Parent = v23;
+v24.CornerRadius = UDim.new(0, 12);
+v25.Parent = v23;
+v25.LightEmission = 1;
+v25.Size = NumberSequence.new({
+    NumberSequenceKeypoint.new(0, 0.1),
+    NumberSequenceKeypoint.new(1, 0)
+});
 
--- 🟩 Icon hình vuông có bo góc
-local ToggleButton = Instance.new("ImageButton")
-ToggleButton.Name = "ToggleButton"
-ToggleButton.Parent = ScreenGui
-ToggleButton.Image = "rbxassetid://107606765081372" -- Hình icon
-ToggleButton.BackgroundTransparency = 1
-ToggleButton.Size = UDim2.new(0, 60, 0, 60) -- Kích thước nhỏ
-ToggleButton.Position = UDim2.new(0.05, 0, 0.3, 0)
-ToggleButton.Active = true
-ToggleButton.Draggable = true -- Có thể kéo di chuyển
+v25.Lifetime = NumberRange.new(0.5, 1);
+v25.Rate = 0;
+v25.Speed = NumberRange.new(5, 10);
+v25.Color = ColorSequence.new(Color3.fromRGB(255, 85, 255), Color3.fromRGB(85, 255, 255));
 
--- 🟠 Bo góc cho icon
-local UICorner = Instance.new("UICorner")
-UICorner.CornerRadius = UDim.new(0, 12)
-UICorner.Parent = ToggleButton
+local v47 = v26:Create(v23, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+    Rotation = 0
+});
 
--- 🧩 Biến để lưu trạng thái mở/tắt (nếu sau này cần)
-local isOn = false
+local toggled = true
 
-ToggleButton.MouseButton1Click:Connect(function()
-	isOn = not isOn
-	if isOn then
-		print("🟢 Icon bật")
-	else
-		print("🔴 Icon tắt")
-	end
-end)
+v23.MouseButton1Down:Connect(function()
+    v25.Rate = 100;
+    task.delay(1, function()
+        v25.Rate = 0;
+    end);
 
     v47:Play();
     game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game);
