@@ -2309,45 +2309,22 @@ function to(v233)
 end
 
 local v22 = Instance.new("ScreenGui");
-local v22 = Instance.new("ScreenGui");
-local v23 = Instance.new("TextButton");
-local v24 = Instance.new("UICorner");
-local v25 = Instance.new("BoolValue");
-local v26 = game:GetService("TweenService");
+local TweenService = game:GetService("TweenService")
+local ui = Instance.new("ScreenGui", game.CoreGui)
 
-v22.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui");
-v22.Name = "OnOffGui";
-v22.ZIndexBehavior = Enum.ZIndexBehavior.Sibling;
+local toggleMain = Instance.new("ImageButton", ui)
+toggleMain.Size = UDim2.new(0, 50, 0, 50)
+toggleMain.Position = UDim2.new(0, 20, 0, 120)
+toggleMain.BackgroundColor3 = Color3.fromRGB(50, 50, 60)
+toggleMain.BorderSizePixel = 0
+toggleMain.Image = "rbxassetid://80495110628345"
+toggleMain.ScaleType = Enum.ScaleType.Fit
+toggleMain.Active = true
+toggleMain.Draggable = true
 
-v23.Parent = v22;
-v23.BackgroundColor3 = Color3.fromRGB(35, 35, 35);
-v23.BorderSizePixel = 0;
-v23.Position = UDim2.new(0.05, 0, 0.05, 0);
-v23.Size = UDim2.new(0, 80, 0, 40);
-v23.AutoButtonColor = true;
-v23.Font = Enum.Font.SourceSans;
-v23.Text = "OFF";
-v23.TextSize = 18;
-v23.TextColor3 = Color3.fromRGB(255, 255, 255);
-v23.Name = "OnOffButton";
+local uicorner1 = Instance.new("UICorner", toggleMain)
+uicorner1.CornerRadius = UDim.new(0, 10)
 
-v24.Parent = v23;
-v24.CornerRadius = UDim.new(0, 8);
-
-v25.Parent = v22;
-v25.Name = "OnOffState";
-v25.Value = false;
-
-v23.MouseButton1Click:Connect(function()
-    v25.Value = not v25.Value;
-    if v25.Value then
-        v23.Text = "ON";
-        v23.BackgroundColor3 = Color3.fromRGB(0, 170, 0);
-    else
-        v23.Text = "OFF";
-        v23.BackgroundColor3 = Color3.fromRGB(35, 35, 35);
-    end;
-end);
 v25.Size = NumberSequence.new({
     NumberSequenceKeypoint.new(0, 0.1),
     NumberSequenceKeypoint.new(1, 0)
