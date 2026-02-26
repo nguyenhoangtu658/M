@@ -573,10 +573,10 @@ function SilentAimModule:SetPlayerSilentAim(state)
 
     if state then
         startRenderLoop()
-        print("[Aimbot] Đã bật Auto Farm")
+        print("[Aimbot] Đã bật Auto Aim")
     else
         stopRenderLoop()
-        print("[Aimbot] Đã tắt Auto Farm")
+        print("[Aimbot] Đã tắt Auto Aim")
     end
 end
 
